@@ -1,0 +1,43 @@
+{
+  "name": "elvis_plugin_duplicate",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node_modules/.bin/ts-node src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -w -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netlob/elvis_plugin_duplicate.git"
+  },
+  "author": {
+    "name": "Sjoerd Bolten",
+    "email": "sjoerd@netlob.dev",
+    "url": "https://netlob.dev"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/netlob/elvis-plugin-metadata-translation/issues"
+  },
+  "homepage": "https://github.com/netlob/elvis-plugin-metadata-translation#readme",
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 6.9.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.11.1",
+    "@types/node": "^8.10.59",
+    "@types/request": "2.0.0",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "request": "^2.88.2",
+    "ts-node": "^8.10.1"
+  }
+}
