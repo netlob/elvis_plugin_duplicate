@@ -40,7 +40,7 @@ class Server {
                         if (hit.id == req.body.assetId) return false;
                         return hit.metadata.firstExtractedChecksum == newChecksum;
                     });
-                    await this.apiManager.update(req.body.assetId, JSON.stringify({ cf_duplicate: duplicate }));
+                    await this.apiManager.update(req.body.assetId, JSON.stringify({ cf_duplicate: (duplicate != undefined) }));     
                 }
             } catch (e) {
                 console.error(e);
