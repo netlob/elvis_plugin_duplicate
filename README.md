@@ -18,7 +18,7 @@ An Elvis webhook needs to be configured if you want to detect description update
 - Log-in to the Elvis web client as admin user.
 - Go to the management console, webhooks section and add a new webhook.
 - Name: For example, "Tag Translation".
-- URL: Point it to the URL where the image recognition server is running, if it's running on the same machine as Elvis and you did not change the port number in `src/config.ts`, this will be: http://localhost:7060/.
+- URL: Point it to the URL where the image recognition server is running, if it's running on the same machine as Elvis and you did not change the port number in `src/config.ts`, this will be: http://localhost:7090/.
 - Event type: `asset_create`.
 - Leave metadata to include blank
 - Leave asset event configuration blank
@@ -39,7 +39,20 @@ One extra metadata field has to be added in order for this plugin to work.
     <storage storeInMetadata="true" />
     <compass index="tokenized" store="yes" excludeFromAll="false" />
     <data editable="false" datatype="text" multivalue="false" />
+    <description>Set to true when the asset is a duplicate import</description>
   </field>
+  ```
+- and in the `fieldExtentions` tag the following:
+  ```
+  <fieldExt name="cf_duplicate" group="General">
+    <data>
+      <predefinedValues onlyFromList="true">
+        <value>false</value>
+        <value flagIcon="flag_red.png">true</value>
+      </predefinedValues>
+    </data>
+    <userInterface filterUI="checkBoxes" filterValuesSource="usedTerms" flagPosition="99" />
+  </fieldExt>
   ```
 - Make sure to
   - name the field the same as you provide in the `src/config.ts` file

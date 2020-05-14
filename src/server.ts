@@ -36,11 +36,14 @@ class Server {
                 const newChecksum = req.body.changedMetadata.firstExtractedChecksum.newValue;
                 if (newChecksum) {
                     const search = await this.apiManager.searchGet(`firstExtractedChecksum:${newChecksum}`);
-                    const duplicate = search.hits.find(hit => {
+                    const duplicate = search.hits.filter(hit => {
                         if (hit.id == req.body.assetId) return false;
                         return hit.metadata.firstExtractedChecksum == newChecksum;
                     });
-                    await this.apiManager.update(req.body.assetId, JSON.stringify({ cf_duplicate: duplicate }));
+                    await this.apiManager.update(req.body.assetId, JSON.stringify({ cf_duplicate: !!duplicate.length }));
+                    if (!!duplicate.length)
+                        duplicate.forEach(async hit => await this.apiManager.createRelation(req.body.assetId, hit.id, "duplicate"));
+
                 }
             } catch (e) {
                 console.error(e);

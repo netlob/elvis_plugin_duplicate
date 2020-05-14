@@ -490,4 +490,56 @@ export class ElvisApi {
         }
         return this.elvisRequest.request(requestOptions);
     }
+
+    /**
+     * Creates an relation with another document.
+     * 
+     * @param target1Id Id of the 1st asset to be updated.
+     * @param target2Id Id of the 2nd asset to be updated.
+     * @param relationType Type of relation (Contains, Duplicate or Variation).
+     */
+    public createRelation(target1Id: string, target2Id: string, relationType: string): Promise<HitElement> {
+        const localVarPath = this.basePath + '/services/createRelation';
+        let queryParameters: any = {};
+        let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let formParams: any = {};
+
+        if (target1Id === null || target1Id === undefined || target2Id === null || target2Id === undefined) {
+            throw new Error('Required parameter target1Id or target2Id was null or undefined when calling update.');
+        }
+
+        let useFormData = true;
+
+        if (relationType !== undefined) {
+            formParams['relationType'] = relationType;
+        }
+
+        if (target1Id !== undefined) {
+            formParams['target1Id'] = target1Id;
+        }
+
+        if (target2Id !== undefined) {
+            formParams['target2Id'] = target2Id;
+        }
+
+        let requestOptions: request.Options = {
+            method: 'POST',
+            qs: queryParameters,
+            headers: headerParams,
+            uri: localVarPath,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(requestOptions);
+
+        if (Object.keys(formParams).length) {
+            if (useFormData) {
+                (<any>requestOptions).formData = formParams;
+            } else {
+                requestOptions.form = formParams;
+            }
+        }
+
+        return this.elvisRequest.request(requestOptions);
+    }
 }
