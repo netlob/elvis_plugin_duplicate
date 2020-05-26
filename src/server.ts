@@ -46,8 +46,10 @@ class Server {
                         return hit.metadata.firstExtractedChecksum == newChecksum;
                     });
                     await this.apiManager.update(req.body.assetId, JSON.stringify({ cf_duplicate: (!!duplicate.length) }));
-                    if (!!duplicate.length)
+                    if (!!duplicate.length) {
                         duplicate.forEach(async hit => await this.apiManager.createRelation(req.body.assetId, hit.id, "duplicate"));
+                        console.info('duplicate upload found: ' + [req.body.changedMetadata.filename, req.body.assetId]);
+                    }
                 }
             } catch (e) {
                 console.error(e);
